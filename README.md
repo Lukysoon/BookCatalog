@@ -1,7 +1,7 @@
 ## How to run this project
 
 #### Add configuration
-- Add appsetting.json file to the project
+Add appsetting.json file to the project
 
 Example:
 
