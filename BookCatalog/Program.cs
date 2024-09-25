@@ -9,7 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseNpgsql(builder.Configuration.GetConnectionString("BookContext")));
+{
+    string? connectionString = builder.Configuration.GetConnectionString("BookContext");
+    
+    if (string.IsNullOrEmpty(connectionString))
+    {
+        throw new InvalidOperationException("Connection string 'BookContext' is null or empty.");
+    }
+    
+    options.UseNpgsql(connectionString);
+});
 
 
 builder.Services.AddControllers();
