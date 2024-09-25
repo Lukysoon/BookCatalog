@@ -11,6 +11,6 @@ public interface IBookRepository
     void DeleteBook(Guid id);
     bool Exist(Guid id);
     List<Book> GetAllBooks();
-    Book GetBook(Guid id);
+    Book? GetBook(Guid id);
     void Update(Book book);
 }

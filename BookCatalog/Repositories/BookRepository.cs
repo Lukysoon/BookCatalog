@@ -33,9 +33,7 @@ public class BookRepository : IBookRepository
 
     public void DeleteBook(Guid id)
     {
-        Book? book = _context.Books.Find(id);
-
-        if (book == null) throw new Exception($"Book with id {id} does not exists");
+        Book book = _context.Books.Find(id)!;
 
         _context.Books.Remove(book);
         _context.SaveChanges();
@@ -52,12 +50,9 @@ public class BookRepository : IBookRepository
         return books;
     }
 
-    public Book GetBook(Guid id)
+    public Book? GetBook(Guid id)
     {
         Book? book = _context.Books.Where(b => b.Id == id).FirstOrDefault();
-
-        if (book == null) throw new Exception($"Book with id {id} does not exists");
-
         return book;
     }
 

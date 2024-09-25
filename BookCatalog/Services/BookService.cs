@@ -42,7 +42,10 @@ public class BookService : IBookService
 
     public BookDto GetBook(Guid id)
     {
-        Book book = _bookrepository.GetBook(id);
+        Book? book = _bookrepository.GetBook(id);
+
+        if (book == null)
+            throw new ArgumentException("Book with this ID does not exists.");
 
         BookDto bookDto = _mapper.Map<BookDto>(book);
 
@@ -62,7 +65,7 @@ public class BookService : IBookService
             if (!_bookrepository.AuthorExists(book.AuthorId))
                 throw new ArgumentException("Author with this ID does not exists in database.");
 
-            if (!_bookrepository.BookTitleExists(book.Title))
+            if (_bookrepository.BookTitleExists(book.Title))
                 throw new ArgumentException("Book with this title already exists in database.");    
         }
         catch (ArgumentException ex)
