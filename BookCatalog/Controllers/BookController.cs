@@ -1,6 +1,5 @@
 using BookCatalog.Models.Dtos;
 using BookCatalog.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookCatalog.Controllers
@@ -18,6 +17,9 @@ namespace BookCatalog.Controllers
 
         [HttpPost]
         [Route("create")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult CreateBook([FromBody] BookDto book)
         {
             try
@@ -40,6 +42,9 @@ namespace BookCatalog.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetBook([FromRoute] Guid id)
         {
             try
@@ -58,6 +63,10 @@ namespace BookCatalog.Controllers
         }
 
         [HttpPut("update")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult UpdateBook([FromBody] BookDto book)
         {
             try
@@ -83,6 +92,9 @@ namespace BookCatalog.Controllers
         }
 
         [HttpDelete("delete/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult DeleteBook([FromRoute] Guid id)
         {
             try
@@ -100,6 +112,8 @@ namespace BookCatalog.Controllers
         }
 
         [HttpGet("get-all")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetAllBooks()
         {
             try
